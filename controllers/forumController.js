@@ -1,40 +1,34 @@
-const { validationResult } = require("express-validator");
-const forumService = require("../services/forumService");
-const { createForumValidation } = require("../requests/forumRequest"); // Import validasi
+const forumService = require('../services/forumService');
+const { validateForum } = require('../validators/forumValidator');
 
-// Controller untuk create forum
-const createForum = [
-  createForumValidation, // Tambahkan validasi request
+const createForum = async (req, res) => {
+  try {
+    // Mengambil ID pengguna yang sedang login dari token atau session
+    const teacherId = req.user.id; // Asumsikan req.user diisi oleh middleware yang mengautentikasi pengguna
 
-  async (req, res) => {
-    const errors = validationResult(req);
+    // Mempersiapkan data forum
+    const forumData = {
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      rating: 0, // Nilai default untuk rating
+      teacher_id: teacherId, // ID pengajar dari user yang login
+    };
 
-    // Cek apakah ada error dari validasi
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+    // Validasi data forum menggunakan forumValidator.js
+    const validatedForumData = validateForum(forumData);
 
-    try {
-      const { name, description, price, rating } = req.body;
-      const newForum = await forumService.createForum({
-        name,
-        description,
-        price,
-        rating,
-      });
+    // Memanggil service untuk membuat forum
+    const newForum = await forumService.createForum(validatedForumData);
 
-      res.status(201).json({
-        message: "Forum created successfully",
-        data: newForum,
-      });
-    } catch (error) {
-      res.status(500).json({
-        message: "An error occurred while creating the forum",
-        error: error.message,
-      });
-    }
-  },
-];
+    return res.status(201).json({
+      message: 'Forum created successfully',
+      data: newForum,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   createForum,
