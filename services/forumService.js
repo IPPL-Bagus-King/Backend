@@ -1,4 +1,4 @@
-const { Forum } = require("../models");
+const { Forum } = require('../models');
 
 // Service untuk create forum
 const createForum = async (forumData) => {
