@@ -1,17 +1,17 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Enrollment extends Model {
     static associate(models) {
-      // Definisikan asosiasi di sini
+      // mendefinisikan relasi
       Enrollment.belongsTo(models.User, {
-        foreignKey: "student_id",
-        as: "student",
+        foreignKey: 'student_id',
+        as: 'student',
       });
       Enrollment.belongsTo(models.Forum, {
-        foreignKey: "forum_id",
-        as: "forum",
+        foreignKey: 'forum_id',
+        as: 'forum',
       });
     }
   }
@@ -21,38 +21,25 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Forums", // Mengaitkan ke tabel Forums
-          key: "id",
+          model: 'Forums', // Mengaitkan ke tabel Forums
+          key: 'id',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
       },
       student_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Users", // Mengaitkan ke tabel Users
-          key: "id",
+          model: 'Users', // Mengaitkan ke tabel Users
+          key: 'id',
         },
-        onDelete: "CASCADE",
-      },
-      status: {
-        type: DataTypes.ENUM("pending", "approved", "rejected"),
-        allowNull: false,
-        defaultValue: "pending", // Status awal adalah pending
-      },
-      amount: {
-        type: DataTypes.FLOAT,
-        allowNull: false, // Sesuaikan sesuai kebutuhan
-      },
-      payment_proof: {
-        type: DataTypes.STRING,
-        allowNull: false, // Sesuaikan sesuai kebutuhan
+        onDelete: 'CASCADE',
       },
     },
     {
       sequelize,
-      modelName: "Enrollment",
-      tableName: "Enrollments", // Nama tabel di database
+      modelName: 'Enrollment',
+      tableName: 'Enrollments', // Nama tabel di database
       underscored: true,
     }
   );

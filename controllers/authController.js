@@ -40,7 +40,7 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { email, password, name, phone_number, role } = req.body;
 
     // Cek apakah pengguna sudah terdaftar dengan email yang sama
     const existingUser = await User.findOne({ where: { email } });
@@ -51,12 +51,20 @@ const register = async (req, res) => {
     // Hash password sebelum menyimpan ke database
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Tentukan status berdasarkan role
+    let status = 'approved'; // Default status untuk student
+    if (role === 'teacher') {
+      status = 'pending'; // Teacher perlu disetujui admin
+    }
+
     // Buat pengguna baru dengan password yang sudah di-hash
     const newUser = await User.create({
-      name,
       email,
       password: hashedPassword,
-      role, // 'teacher', 'student', 'admin', etc.
+      name,
+      phone_number,
+      role, // 'teacher', 'student', 'admin'
+      status,
     });
 
     // Membuat token JWT untuk pengguna baru
