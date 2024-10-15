@@ -4,11 +4,6 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // Definisikan asosiasi di sini
-      User.hasOne(models.AdminDetails, {
-        foreignKey: 'admin_id',
-        as: 'adminDetails',
-      });
       User.hasMany(models.Enrollment, {
         foreignKey: 'student_id',
         as: 'enrollments',
@@ -29,12 +24,20 @@ module.exports = (sequelize, DataTypes) => {
           isEmail: true,
         },
       },
+      phone_number: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       role: {
         type: DataTypes.ENUM('admin', 'teacher', 'student'),
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.ENUM('pending', 'approved', 'rejected'),
         allowNull: false,
       },
     },

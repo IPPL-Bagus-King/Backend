@@ -1,17 +1,17 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Forum extends Model {
     static associate(models) {
       // Definisikan asosiasi di sini
       Forum.hasMany(models.Enrollment, {
-        foreignKey: "forum_id",
-        as: "enrollments",
+        foreignKey: 'forum_id',
+        as: 'enrollments',
       });
       Forum.belongsTo(models.User, {
-        foreignKey: "teacher_id", // Menentukan foreign key
-        as: "teacher", // Alias untuk asosiasi
+        foreignKey: 'teacher_id', // Menentukan foreign key
+        as: 'teacher', // Alias untuk asosiasi
       });
     }
   }
@@ -29,25 +29,20 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      rating: {
-        type: DataTypes.FLOAT,
-        allowNull: true,
-        defaultValue: 0.0, // Nilai default untuk rating
-      },
       teacher_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Users", // Mengaitkan ke tabel Users
-          key: "id",
+          model: 'Users', // Mengaitkan ke tabel Users
+          key: 'id',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
       },
     },
     {
       sequelize,
-      modelName: "Forum",
-      tableName: "Forums", // Nama tabel di database
+      modelName: 'Forum',
+      tableName: 'Forums', // Nama tabel di database
       underscored: true,
     }
   );
