@@ -22,7 +22,7 @@ const createForum = async (req, res) => {
     const newForum = await forumService.createForum(validatedForumData);
 
     return res.status(201).json({
-      message: 'Forum created successfully',
+      message: 'Successfully created a new forum',
       data: newForum,
     });
   } catch (error) {
@@ -36,7 +36,21 @@ const getForums = async (req, res) => {
     const forums = await forumService.getForums();
 
     return res.status(200).json({
-      message: 'Forums data retrieved successfully',
+      message: 'Successfully get forums data',
+      data: forums,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const getForumsByTeacherId = async (req, res) => {
+  try {
+    const teacherId = req.user.id;
+
+    const forums = await forumService.getForumsByTeacherId(teacherId);
+    return res.status(200).json({
+      message: "Successfully get teacher's forum",
       data: forums,
     });
   } catch (error) {
@@ -47,4 +61,5 @@ const getForums = async (req, res) => {
 module.exports = {
   createForum,
   getForums,
+  getForumsByTeacherId,
 };
