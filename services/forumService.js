@@ -22,7 +22,20 @@ const getForums = async (forumData) => {
   }
 };
 
+// Service untuk get forum milik teacher
+const getForumsByTeacherId = async (teacherId) => {
+  try {
+    const forums = await Forum.findAll({
+      where: { teacher_id: teacherId },
+    });
+    return forums;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 module.exports = {
   createForum,
   getForums,
+  getForumsByTeacherId,
 };

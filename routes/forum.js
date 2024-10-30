@@ -15,4 +15,12 @@ router.post(
 // route get forums
 router.get('/', authenticateUser, forumController.getForums);
 
+// route get forums by teacher id
+router.get(
+  '/teacher-forums',
+  authenticateUser,
+  authorizeTeacher,
+  forumController.getForumsByTeacherId
+);
+
 module.exports = router;
