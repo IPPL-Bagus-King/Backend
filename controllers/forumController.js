@@ -1,5 +1,5 @@
 const forumService = require('../services/forumService');
-const { validateForum } = require('../validators/forumValidator');
+const { validateForum } = require('../validations/forumValidator');
 
 const createForum = async (req, res) => {
   try {
@@ -30,6 +30,21 @@ const createForum = async (req, res) => {
   }
 };
 
+const getForums = async (req, res) => {
+  try {
+    // Memanggil service untuk get forums
+    const forums = await forumService.getForums();
+
+    return res.status(200).json({
+      message: 'Forums data retrieved successfully',
+      data: forums,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createForum,
+  getForums,
 };

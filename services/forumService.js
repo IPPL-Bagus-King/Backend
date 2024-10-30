@@ -11,6 +11,18 @@ const createForum = async (forumData) => {
   }
 };
 
+// Service untuk get forums
+const getForums = async (forumData) => {
+  try {
+    // Menggunakan Sequelize untuk get forums di database
+    const forums = await Forum.findAll(forumData);
+    return forums;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 module.exports = {
   createForum,
+  getForums,
 };
