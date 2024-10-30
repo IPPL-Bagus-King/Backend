@@ -34,8 +34,22 @@ const getForumsByTeacherId = async (teacherId) => {
   }
 };
 
+const updateForum = async (forumId, updatedData) => {
+  // Mencari forum berdasarkan ID
+  const forum = await Forum.findByPk(forumId);
+  if (!forum) {
+    throw new Error('Forum not found');
+  }
+
+  // Mengupdate forum berdasarkan ID dengan data yang sudah divalidasi di controller
+  await forum.update(updatedData);
+
+  return forum;
+};
+
 module.exports = {
   createForum,
   getForums,
   getForumsByTeacherId,
+  updateForum,
 };

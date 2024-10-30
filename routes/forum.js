@@ -23,4 +23,12 @@ router.get(
   forumController.getForumsByTeacherId
 );
 
+// route update forum
+router.put(
+  '/:id',
+  authenticateUser,
+  authorizeTeacher,
+  forumController.updateForum
+);
+
 module.exports = router;
