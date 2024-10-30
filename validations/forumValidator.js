@@ -1,23 +1,37 @@
 const Joi = require('joi');
 
-// Membuat schema validasi dengan Joi
-const forumSchema = Joi.object({
-  name: Joi.string().required().min(3).max(100),
-  description: Joi.string().required().min(10),
+const createForumSchema = Joi.object({
+  name: Joi.string().required(),
+  description: Joi.string().required(),
   price: Joi.number().required().min(0),
-  rating: Joi.number().default(0), // Nilai default rating
-  teacher_id: Joi.number().required(), // ID pengajar harus ada
+  teacher_id: Joi.number().required(),
 });
 
-// Fungsi untuk memvalidasi input forum
-const validateForum = (forumData) => {
-  const { error, value } = forumSchema.validate(forumData);
+const updateForumSchema = Joi.object({
+  name: Joi.string().optional(),
+  description: Joi.string().optional(),
+  price: Joi.number().min(0).optional(),
+});
+
+// Fungsi untuk memvalidasi input forum untuk create
+const validateCreateForum = (forumData) => {
+  const { error, value } = createForumSchema.validate(forumData);
   if (error) {
-    throw new Error(error.details[0].message); // Melempar error jika validasi gagal
+    throw new Error(error.details[0].message);
   }
-  return value; // Mengembalikan data yang tervalidasi jika sukses
+  return value;
+};
+
+// Fungsi untuk memvalidasi input forum untuk update
+const validateUpdateForum = (forumData) => {
+  const { error, value } = updateForumSchema.validate(forumData);
+  if (error) {
+    throw new Error(error.details[0].message);
+  }
+  return value;
 };
 
 module.exports = {
-  validateForum,
+  validateCreateForum,
+  validateUpdateForum,
 };
