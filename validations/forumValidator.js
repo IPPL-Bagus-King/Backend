@@ -1,4 +1,4 @@
-const Joi = require("joi");
+const Joi = require('joi');
 
 // Membuat schema validasi dengan Joi
 const forumSchema = Joi.object({
