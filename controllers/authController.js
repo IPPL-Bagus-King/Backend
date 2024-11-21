@@ -23,7 +23,7 @@ const login = async (req, res) => {
 
     // Membuat token JWT
     const token = jwt.sign(
-      { id: user.id, role: user.role }, // Payload
+      { id: user.id, role: user.role, name: user.name, email: user.email }, // Payload
       process.env.JWT_SECRET, // Secret key dari .env
       { expiresIn: '1h' } // Token berlaku 1 jam
     );
@@ -69,7 +69,7 @@ const register = async (req, res) => {
 
     // Membuat token JWT untuk pengguna baru
     const token = jwt.sign(
-      { id: newUser.id, role: newUser.role }, // Payload token
+      { id: newUser.id, role: newUser.role, name: newUser.name, email: newUser.email }, // Payload token
       process.env.JWT_SECRET, // Secret key dari .env
       { expiresIn: '1h' } // Token berlaku selama 1 jam
     );

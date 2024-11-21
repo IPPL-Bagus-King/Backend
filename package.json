@@ -19,6 +19,7 @@
     "http-errors": "~1.6.3",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "midtrans-client": "^1.4.2",
     "morgan": "~1.9.1",
     "mysql2": "^3.11.3",
     "pug": "2.0.0-beta11",
