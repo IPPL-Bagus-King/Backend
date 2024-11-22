@@ -47,9 +47,23 @@ const updateForum = async (forumId, updatedData) => {
   return forum;
 };
 
+const deleteForum = async (forumId) => {
+  // Mencari forum berdasarkan ID
+  const forum = await Forum.findByPk(forumId);
+  if (!forum) {
+    throw new Error('Forum not found');
+  }
+
+  // Menghapus forum berdasarkan ID
+  await forum.destroy();
+
+  return { message: 'Forum deleted successfully' };
+};
+
 module.exports = {
   createForum,
   getForums,
   getForumsByTeacherId,
   updateForum,
+  deleteForum,
 };

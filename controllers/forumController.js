@@ -86,9 +86,23 @@ const updateForum = async (req, res) => {
   }
 };
 
+const deleteForum = async (req, res) => {
+  try {
+    const forumId = req.params.id; // Mengambil forumId dari parameter URL
+
+    // Memanggil service untuk menghapus forum
+    const result = await forumService.deleteForum(forumId);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createForum,
   getForums,
   getForumsByTeacherId,
   updateForum,
+  deleteForum,
 };
