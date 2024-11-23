@@ -22,6 +22,15 @@ const getForums = async (forumData) => {
   }
 };
 
+// Service untuk get forum berdasarkan id
+const getForumsById = async (forumId) => {
+  const forum = await Forum.findByPk(forumId);
+  if (!forum) {
+    throw new Error('Forum not found');
+  }
+  return forum;
+};
+
 // Service untuk get forum milik teacher
 const getForumsByTeacherId = async (teacherId) => {
   try {
@@ -63,6 +72,7 @@ const deleteForum = async (forumId) => {
 module.exports = {
   createForum,
   getForums,
+  getForumsById,
   getForumsByTeacherId,
   updateForum,
   deleteForum,
