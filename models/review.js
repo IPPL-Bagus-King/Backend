@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
         allowNull: false, // Pastikan rating diisi
         validate: {
-          min: 0, // Minimum rating
+          min: 1, // Minimum rating
           max: 5, // Maximum rating
         },
       },
