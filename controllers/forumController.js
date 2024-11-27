@@ -43,6 +43,20 @@ const getForums = async (req, res) => {
   }
 };
 
+const getForumsById = async (req, res) => {
+  try {
+    const forumId = req.params.id;
+
+    const forum = await forumService.getForumsById(forumId);
+    return res.status(200).json({
+      message: 'Successfully get forum data!',
+      data: forum,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 const getForumsByTeacherId = async (req, res) => {
   try {
     const teacherId = req.user.id;
@@ -102,6 +116,7 @@ const deleteForum = async (req, res) => {
 module.exports = {
   createForum,
   getForums,
+  getForumsById,
   getForumsByTeacherId,
   updateForum,
   deleteForum,

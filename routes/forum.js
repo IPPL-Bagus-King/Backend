@@ -10,6 +10,9 @@ router.post('/', auth, authTeacher, forumController.createForum);
 // route get forums
 router.get('/', auth, forumController.getForums);
 
+// route get forum by id
+router.get('/:id', auth, forumController.getForumsById);
+
 // route get forums by teacher id
 router.get(
   '/teacher-forums',
