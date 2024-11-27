@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const forumRoutes = require('./routes/forum');
+const adminRoutes = require('./routes/admin');
 const checkoutRoutes = require('./routes/checkout');
 const reviewRoutes = require('./routes/review');
 
@@ -31,6 +32,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRoutes);
 app.use('/forum', forumRoutes);
+app.use('/admin', adminRoutes);
 app.use('/checkout', checkoutRoutes);
 app.use('/review', reviewRoutes)
 

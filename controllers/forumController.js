@@ -44,6 +44,20 @@ const getForums = async (req, res) => {
   }
 };
 
+const getForumsById = async (req, res) => {
+  try {
+    const forumId = req.params.id;
+
+    const forum = await forumService.getForumsById(forumId);
+    return res.status(200).json({
+      message: 'Successfully get forum data!',
+      data: forum,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 const getForumsByTeacherId = async (req, res) => {
   try {
     const teacherId = req.user.id;
@@ -100,10 +114,41 @@ const deleteForum = async (req, res) => {
   }
 };
 
+const uploadMaterial = async (req, res) => {
+  try {
+    const { forumId } = req.params;
+    const { title, description } = req.body;
+    const files = req.files; // Semua file yang diunggah
+
+    if (!files || files.length === 0) {
+      return res.status(400).json({ message: 'At least one file is required' });
+    }
+
+    // Data materi utama
+    const materialData = {
+      forum_id: forumId,
+      title,
+      description,
+    };
+
+    // Simpan materi utama dan file-file terkait
+    const newMaterial = await forumService.uploadMaterial(materialData, files);
+
+    return res.status(201).json({
+      message: 'Material uploaded successfully',
+      data: newMaterial,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createForum,
   getForums,
+  getForumsById,
   getForumsByTeacherId,
   updateForum,
   deleteForum,
+  uploadMaterial,
 };
