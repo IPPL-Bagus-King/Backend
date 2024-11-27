@@ -3,6 +3,7 @@ const router = express.Router();
 const forumController = require('../controllers/forumController');
 const auth = require('../middleware/authenticateUser');
 const authTeacher = require('../middleware/authorizeTeacher');
+const handleFileUpload = require('../middleware/uploadFile');
 
 // route create forum
 router.post('/', auth, authTeacher, forumController.createForum);
@@ -26,5 +27,14 @@ router.put('/:id', auth, authTeacher, forumController.updateForum);
 
 // route delete forum
 router.delete('/:id', auth, authTeacher, forumController.deleteForum);
+
+// route upload material
+router.post(
+  '/:forumId/materials',
+  auth,
+  authTeacher,
+  handleFileUpload,
+  forumController.uploadMaterial
+);
 
 module.exports = router;

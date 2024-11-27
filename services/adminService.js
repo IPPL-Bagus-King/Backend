@@ -11,8 +11,14 @@ const updateTeacherStatus = async (teacherId, action) => {
   }
 
   // Ubah status berdasarkan aksi
-  teacher.status = action === 'approve' ? 'approved' : 'rejected';
-  await teacher.save();
+  if (action === 'approve') {
+    // Ubah status ke approved
+    teacher.status = 'approved';
+    await teacher.save();
+  } else if (action === 'reject') {
+    // Hapus teacher jika statusnya reject
+    await teacher.destroy();
+  }
 };
 
 const getPendingTeachers = async () => {
