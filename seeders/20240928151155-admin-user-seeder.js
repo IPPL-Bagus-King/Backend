@@ -13,6 +13,7 @@ module.exports = {
       password: hashedPassword,
       name: 'Admin User',
       phone_number: '081111111111',
+      picture: '/images/user/1.png',
       role: 'admin',
       status: 'approved',
       created_at: new Date(),

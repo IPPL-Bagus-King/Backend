@@ -24,6 +24,11 @@ router.get(
     reviewController.getReview
 )
 
+router.get(
+    '/',
+    reviewController.getAllReview
+)
+
 router.put(
     '/',
     auth,

@@ -8,7 +8,7 @@ const authTeacher = require('../middleware/authorizeTeacher');
 router.post('/', auth, authTeacher, forumController.createForum);
 
 // route get forums
-router.get('/', auth, forumController.getForums);
+router.get('/', forumController.getForums);
 
 // route get forums by teacher id
 router.get(
