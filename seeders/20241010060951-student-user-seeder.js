@@ -1,6 +1,6 @@
 'use strict';
 
-const { User, Enrollment } = require('../models');
+const { User } = require('../models');
 const bcrypt = require('bcrypt');
 
 module.exports = {
@@ -48,51 +48,10 @@ module.exports = {
       ],
       { returning: true }
     ); // Mengembalikan instances student yang baru dibuat
-
-    // membuat enrollment untuk tiap student
-    await Enrollment.bulkCreate([
-      {
-        student_id: students[0].id, // Raka
-        forum_id: 1, // Analisis Kompleksitas Algoritma Mas Herman
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        student_id: students[0].id, // Raka
-        forum_id: 2, // Struktur Data Mas Herman
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        student_id: students[1].id, // Valen
-        forum_id: 2, // Struktur Data Mas Herman
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        student_id: students[1].id, // Valen
-        forum_id: 3, // Kalkulus Teh Sumirah
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        student_id: students[2].id, // Bagus
-        forum_id: 2, //Struktur Data Mas Herman
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        student_id: students[2].id, // Bagus
-        forum_id: 3, // Kalkulus Teh Sumirah
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Hapus data enrollment dan student
-    await queryInterface.bulkDelete('Enrollments', null, {});
+    // Hapus data student
     await queryInterface.bulkDelete('Users', { role: 'student' }, {});
   },
 };

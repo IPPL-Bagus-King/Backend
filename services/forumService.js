@@ -43,6 +43,7 @@ const getForumsByTeacherId = async (teacherId) => {
   }
 };
 
+// service untuk update forum
 const updateForum = async (forumId, updatedData) => {
   // Mencari forum berdasarkan ID
   const forum = await Forum.findByPk(forumId);
@@ -56,6 +57,7 @@ const updateForum = async (forumId, updatedData) => {
   return forum;
 };
 
+// service untuk delete forum
 const deleteForum = async (forumId) => {
   // Mencari forum berdasarkan ID
   const forum = await Forum.findByPk(forumId);
@@ -69,6 +71,7 @@ const deleteForum = async (forumId) => {
   return { message: 'Forum deleted successfully' };
 };
 
+// service untuk upload materi
 const uploadMaterial = async (materialData, files) => {
   try {
     // Simpan data materi ke tabel Materials
@@ -99,6 +102,52 @@ const uploadMaterial = async (materialData, files) => {
   }
 };
 
+// service untuk get materi dari forum
+const getMaterials = async (forumId) => {
+  const materials = await Material.findAll({
+    where: { forum_id: forumId },
+    include: [
+      {
+        model: MaterialFile,
+        as: 'files',
+        attributes: ['id', 'file_url'],
+      },
+    ],
+  });
+
+  if (!materials || materials.length === 0) {
+    throw new Error('No materials found for the specified forum.');
+  }
+
+  return materials;
+};
+
+// service untuk delete materi
+const deleteMaterial = async (materialId) => {
+  const material = await Material.findByPk(materialId);
+
+  if (!material) {
+    throw new Error('Material not found');
+  }
+
+  // Hapus materi, MaterialFiles akan ikut terhapus karena cascade
+  await material.destroy();
+
+  return { message: 'Material and its files have been deleted successfully' };
+};
+
+const deleteMaterialFile = async (fileId) => {
+  const materialFile = await MaterialFile.findByPk(fileId);
+
+  if (!materialFile) {
+    throw new Error('Material file not found');
+  }
+
+  await materialFile.destroy();
+
+  return { message: 'Material file deleted successfully' };
+};
+
 module.exports = {
   createForum,
   getForums,
@@ -107,4 +156,7 @@ module.exports = {
   updateForum,
   deleteForum,
   uploadMaterial,
+  getMaterials,
+  deleteMaterial,
+  deleteMaterialFile,
 };

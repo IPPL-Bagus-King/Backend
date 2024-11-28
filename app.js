@@ -27,11 +27,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(
+  cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 // routes
 app.use('/', indexRouter);
@@ -40,7 +42,7 @@ app.use('/auth', authRoutes);
 app.use('/forum', forumRoutes);
 app.use('/admin', adminRoutes);
 app.use('/checkout', checkoutRoutes);
-app.use('/review', reviewRoutes)
+app.use('/review', reviewRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

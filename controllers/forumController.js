@@ -143,6 +143,51 @@ const uploadMaterial = async (req, res) => {
   }
 };
 
+const getMaterials = async (req, res) => {
+  try {
+    const { forumId } = req.params; // Ambil forumId dari parameter URL
+
+    const materials = await forumService.getMaterials(forumId);
+
+    return res.status(200).json({
+      message: 'Materials fetched successfully',
+      data: materials,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteMaterial = async (req, res) => {
+  try {
+    const { materialId } = req.params;
+    if (!materialId || isNaN(Number(materialId))) {
+      return res.status(400).json({ message: 'Invalid material ID' });
+    }
+
+    const result = await forumService.deleteMaterial(materialId);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteMaterialFile = async (req, res) => {
+  try {
+    const { fileId } = req.params;
+    if (!fileId || isNaN(Number(fileId))) {
+      return res.status(400).json({ message: 'Invalid file ID' });
+    }
+
+    const result = await forumService.deleteMaterialFile(fileId);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createForum,
   getForums,
@@ -151,4 +196,7 @@ module.exports = {
   updateForum,
   deleteForum,
   uploadMaterial,
+  getMaterials,
+  deleteMaterial,
+  deleteMaterialFile,
 };
