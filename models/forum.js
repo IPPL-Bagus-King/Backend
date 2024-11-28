@@ -5,10 +5,6 @@ module.exports = (sequelize, DataTypes) => {
   class Forum extends Model {
     static associate(models) {
       // Definisikan asosiasi di sini
-      Forum.hasMany(models.Enrollment, {
-        foreignKey: 'forum_id',
-        as: 'enrollments',
-      });
       Forum.belongsTo(models.User, {
         foreignKey: 'teacher_id', // Menentukan foreign key
         as: 'teacher', // Alias untuk asosiasi

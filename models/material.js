@@ -8,6 +8,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'forum_id',
         as: 'forum',
       });
+
+      // Asosiasi dengan MaterialFile
+      Material.hasMany(models.MaterialFile, {
+        foreignKey: 'material_id',
+        as: 'files',
+        onDelete: 'CASCADE',
+      });
     }
   }
   Material.init(

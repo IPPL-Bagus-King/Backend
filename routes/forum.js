@@ -37,4 +37,24 @@ router.post(
   forumController.uploadMaterial
 );
 
+// route get materials
+router.get('/:forumId/materials', auth, forumController.getMaterials);
+
+// route delete material
+router.delete(
+  '/materials/:materialId',
+  auth,
+  authTeacher,
+  forumController.deleteMaterial
+);
+
+// route delete material file
+
+router.delete(
+  '/materials/file/:fileId',
+  auth,
+  authTeacher,
+  forumController.deleteMaterialFile
+);
+
 module.exports = router;
