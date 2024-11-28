@@ -16,6 +16,7 @@ module.exports = {
           password: hashedPassword1,
           name: 'Herman Santoso',
           phone_number: `081234567891`,
+          picture: '/images/user/3.png',
           role: 'teacher',
           status: 'approved',
           created_at: new Date(),
@@ -26,6 +27,7 @@ module.exports = {
           password: hashedPassword2,
           name: 'Lujeng Sumirah',
           phone_number: `082345678999`,
+          picture: '/images/user/2.png',
           role: 'teacher',
           status: 'approved',
           created_at: new Date(),
@@ -41,6 +43,7 @@ module.exports = {
         name: 'Analisis Kompleksitas Algoritma Mas Herman',
         description: 'forum untuk belajar AKA',
         price: 200000,
+        picture: '/images/forum/1.png',
         teacher_id: teachers[0].id, // Herman Santoso
         created_at: new Date(),
         updated_at: new Date(),
@@ -49,6 +52,7 @@ module.exports = {
         name: 'Struktur Data Mas Herman',
         description: 'mendiskusikan seputar struktur data',
         price: 150000,
+        picture: '/images/forum/2.png',
         teacher_id: teachers[0].id, // Herman Santoso
         created_at: new Date(),
         updated_at: new Date(),
@@ -57,6 +61,7 @@ module.exports = {
         name: 'Kalkulus Teh Sumirah',
         description: 'tips cepat belajar kalkulus',
         price: 200000,
+        picture: '/images/forum/3.png',
         teacher_id: teachers[1].id, // Lujeng Sumirah
         created_at: new Date(),
         updated_at: new Date(),
@@ -65,6 +70,7 @@ module.exports = {
         name: 'Teori Peluang Teh Sumirah',
         description: 'cara mudah belajar teori peluang',
         price: 200000,
+        picture: '/images/forum/4.png',
         teacher_id: teachers[1].id, // Lujeng Sumirah
         created_at: new Date(),
         updated_at: new Date(),

@@ -35,3 +35,12 @@ exports.updateReview = async (req, res) => {
         return res.status(500).json({ error: error.message })
     }
 }
+
+exports.getAllReview = async (req, res) => {
+    try {
+        const result = await reviewService.getAllReview(req, res)
+        return res.status(result.status).json(result)
+    } catch (error) {
+        return res.status(500).json({ error: error.message })
+    }
+}

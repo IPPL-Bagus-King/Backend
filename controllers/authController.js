@@ -63,6 +63,7 @@ const register = async (req, res) => {
       password: hashedPassword,
       name,
       phone_number,
+      picture: '/images/user/' + Math.floor(Math.random() * 10) + '.png',
       role, // 'teacher', 'student', 'admin'
       status,
     });

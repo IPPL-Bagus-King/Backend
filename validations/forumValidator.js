@@ -3,6 +3,7 @@ const Joi = require('joi');
 const createForumSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
+  picture: Joi.string().required(),
   price: Joi.number().required().min(0),
   teacher_id: Joi.number().required(),
 });

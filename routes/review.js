@@ -20,8 +20,12 @@ router.delete(
 
 router.get(
     '/:id',
-    auth,
     reviewController.getReview
+)
+
+router.get(
+    '/',
+    reviewController.getAllReview
 )
 
 router.put(

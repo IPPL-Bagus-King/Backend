@@ -141,3 +141,19 @@ exports.updateReview = async (req, res) => {
         }
     }
 }
+
+exports.getAllReview = async (req, res) => {
+    const allReview = await Review.findAll();
+
+    if (!allReview || allReview.length === 0) {
+        return {
+            status: 404, 
+            message: "Review tidak ditemukan!"
+        }
+    }
+
+    return {
+        status: 200,
+        data: allReview,
+    }
+}

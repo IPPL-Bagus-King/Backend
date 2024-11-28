@@ -14,6 +14,7 @@ const createForum = async (req, res) => {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
+      picture: '/images/forum/' + Math.floor(Math.random() * 10) + '.png',
       teacher_id: teacherId, // ID pengajar dari user yang login
     };
 

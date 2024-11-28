@@ -20,6 +20,10 @@ module.exports = {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
+      picture: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       teacher_id: {
         type: Sequelize.INTEGER,
         references: {
