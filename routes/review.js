@@ -20,7 +20,6 @@ router.delete(
 
 router.get(
     '/:id',
-    auth,
     reviewController.getReview
 )
 
