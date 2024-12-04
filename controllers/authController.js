@@ -21,12 +21,18 @@ const login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid password' });
     }
 
+    // payload token JWT
+    const payload = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      name: user.name,
+      phone_number: user.phone_number,
+      picture: user.picture,
+    };
+
     // Membuat token JWT
-    const token = jwt.sign(
-      { id: user.id, role: user.role, name: user.name, email: user.email }, // Payload
-      process.env.JWT_SECRET, // Secret key dari .env
-      { expiresIn: '1h' } // Token berlaku 1 jam
-    );
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // Mengembalikan token ke klien
     return res.status(200).json({
@@ -68,12 +74,19 @@ const register = async (req, res) => {
       status,
     });
 
-    // Membuat token JWT untuk pengguna baru
-    const token = jwt.sign(
-      { id: newUser.id, role: newUser.role, name: newUser.name, email: newUser.email }, // Payload token
-      process.env.JWT_SECRET, // Secret key dari .env
-      { expiresIn: '1h' } // Token berlaku selama 1 jam
-    );
+    // payload token JWT
+    const payload = {
+      id: newUser.id,
+      email: newUser.email,
+      role: newUser.role,
+      name: newUser.name,
+      phone_number: newUser.phone_number,
+      picture: newUser.picture,
+    };
+    
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    console.log('Payload for Token:', payload);
 
     // Mengembalikan respon ke klien
     return res.status(201).json({
