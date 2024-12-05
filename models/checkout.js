@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     id_forum: DataTypes.INTEGER,
     status: DataTypes.STRING,
     order_id: DataTypes.STRING,
+    bank: DataTypes.STRING,
     va_number: DataTypes.STRING
   }, {
     sequelize,

@@ -63,6 +63,7 @@ exports.createCheckoutProduct = async (req, res) => {
             id_user,
             id_forum: id_product,
             status: 'pending',
+            bank: bank,
             va_number: transactionToken.va_numbers[0].va_number,
         }
     )
@@ -158,13 +159,15 @@ exports.checkPurchaseService = async (req, res) => {
             return {
                 status: 200,
                 message: "Success Get Data",
-                data: data.status
+                data: data,
             }
         } else {
             return {
                 status: 404,
                 message: "Data Not Found",
-                data: null
+                data: {
+                    status: null
+                }
             }
         }
     } catch (error) {

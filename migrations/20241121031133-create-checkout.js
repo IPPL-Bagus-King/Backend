@@ -21,6 +21,9 @@ module.exports = {
       order_id: {
         type: Sequelize.STRING
       },
+      bank: {
+        type: Sequelize.STRING
+      },
       va_number: {
         type: Sequelize.STRING
       },
