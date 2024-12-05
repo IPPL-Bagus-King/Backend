@@ -9,3 +9,13 @@ exports.notificationController = async (req, res) => {
     const result = await checkoutService.notificationService(req, res)
     return res.status(result.status).json(result)
 }
+
+exports.historyProductController = async (req, res) => {
+    const result = await checkoutService.getHistoryProduct(req, res)
+    return res.status(result.status).json(result)
+}
+
+exports.checkPurchaseController = async (req, res) => {
+    const result = await checkoutService.checkPurchaseService(req, res)
+    return res.status(result.status).json(result)
+}

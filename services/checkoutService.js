@@ -102,3 +102,76 @@ exports.notificationService = async (req, res) => {
         }
     }
 }
+
+exports.getHistoryProduct = async (req, res) => {
+    try {
+        const id_user = req.user.id
+        const data = await Checkout.findAll(
+            {
+                where: 
+                {
+                    id_user,
+                },
+                include: [
+                    {
+                        model: Forum,
+                        as: 'forum',
+                        attributes: ['name', 'description', 'price', 'picture', 'teacher_id'],
+                    }
+                ]
+            }
+        )
+
+        data.map((item) => {
+            item.dataValues.forum.dataValues.price = rupiahFormat(item.dataValues.forum.dataValues.price)
+        })
+
+        return {
+            status: 200,
+            data,
+            message: "Success Get Data"
+        }
+    } catch (error) {
+        return {
+            status: 500,
+            data: [],
+            message: error.message
+        }
+    }
+}
+
+exports.checkPurchaseService = async (req, res) => {
+    try {
+        const id_user = req.user.id
+        const id_forum = req.params.forumid
+        const data = await Checkout.findOne(
+            {
+                where: 
+                {
+                    id_user,
+                    id_forum,
+                }
+            }
+        )
+
+        if(data){
+            return {
+                status: 200,
+                message: "Success Get Data",
+                data: data.status
+            }
+        } else {
+            return {
+                status: 404,
+                message: "Data Not Found",
+                data: null
+            }
+        }
+    } catch (error) {
+        return {
+            status: 500,
+            message: error.message,
+            data: null
+        }
+    }
+}

@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Checkout.belongsTo(models.Forum, {
+        as: 'forum',
+        foreignKey: 'id_forum'
+      });
     }
   }
   Checkout.init({

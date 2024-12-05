@@ -11,6 +11,20 @@ router.post(
     checkoutController.checkoutProductController
 );
 
+router.get(
+    '/history', 
+    auth,
+    authStudent,
+    checkoutController.historyProductController
+);
+
+router.get(
+    '/check-purchase/:forumid',
+    auth,
+    authStudent,
+    checkoutController.checkPurchaseController
+)
+
 router.post(
     '/notification', 
     checkoutController.notificationController
