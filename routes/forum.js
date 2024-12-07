@@ -16,7 +16,7 @@ router.get('/:id', auth, forumController.getForumsById);
 
 // route get forums by teacher id
 router.get(
-  '/teacher-forums',
+  '/teacher-forums/:teacherId',
   auth,
   authTeacher,
   forumController.getForumsByTeacherId

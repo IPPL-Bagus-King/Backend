@@ -60,7 +60,7 @@ const getForumsById = async (req, res) => {
 
 const getForumsByTeacherId = async (req, res) => {
   try {
-    const teacherId = req.user.id;
+    const { teacherId } = req.params;
 
     const forums = await forumService.getForumsByTeacherId(teacherId);
     return res.status(200).json({
