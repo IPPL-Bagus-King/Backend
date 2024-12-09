@@ -28,6 +28,7 @@ const login = async (req, res) => {
       role: user.role,
       name: user.name,
       phone_number: user.phone_number,
+      status: user.status,
       picture: user.picture,
     };
 
@@ -81,6 +82,7 @@ const register = async (req, res) => {
       role: newUser.role,
       name: newUser.name,
       phone_number: newUser.phone_number,
+      status: newUser.status,
       picture: newUser.picture,
     };
     
