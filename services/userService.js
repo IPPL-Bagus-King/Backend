@@ -13,8 +13,14 @@ exports.getUserById = async (req, res) => {
         return {
             status: 200,
             data: {
+                "id": user.id,
                 "username": user.name,
                 "picture": user.picture,
+                "phone_number": user.phone_number,
+                "email": user.email,
+                "created_at": user.createdAt,
+                "updated_at": user.updatedAt
+
             }
         }
     } catch (error) {

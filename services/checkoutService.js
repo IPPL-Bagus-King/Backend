@@ -57,6 +57,7 @@ exports.createCheckoutProduct = async (req, res) => {
 
     let transactionToken = await coreApi.charge(dataMidstrans)
 
+    console.log(transactionToken);
     let data = await Checkout.create(
         {
             order_id: `order-${random}`,
@@ -65,6 +66,7 @@ exports.createCheckoutProduct = async (req, res) => {
             status: 'pending',
             bank: bank,
             va_number: transactionToken.va_numbers[0].va_number,
+        
         }
     )
     
