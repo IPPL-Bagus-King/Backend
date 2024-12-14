@@ -1,4 +1,6 @@
 const { Forum, Material, MaterialFile } = require('../models');
+const fs = require('fs').promises;
+const path = require('path');
 
 // Service untuk create forum
 const createForum = async (forumData) => {
@@ -80,7 +82,7 @@ const uploadMaterial = async (materialData, files) => {
     // Simpan file-file yang diunggah ke tabel MaterialFiles
     const materialFiles = files.map((file) => ({
       material_id: material.id,
-      file_url: file.path, // Path file yang diunggah
+      file_url: file.filename, // Path file yang diunggah
     }));
 
     const createdFiles = await MaterialFile.bulkCreate(materialFiles, {
@@ -141,6 +143,17 @@ const deleteMaterialFile = async (fileId) => {
 
   if (!materialFile) {
     throw new Error('Material file not found');
+  }
+
+  const filePath = path.join(__dirname, '../uploads/materials', materialFile.file_url);
+
+  try {
+    // Hapus file dari folder
+    await fs.unlink(filePath);
+    console.log(`File ${filePath} deleted successfully.`);
+  } catch (err) {
+    console.error(`Failed to delete file ${filePath}:`, err.message);
+    throw new Error('Error deleting file from disk');
   }
 
   await materialFile.destroy();
