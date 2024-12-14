@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'forum',
         foreignKey: 'id_forum'
       });
+      Checkout.belongsTo(models.User, {
+        as: 'user',
+        foreignKey: 'id_user'
+      });
     }
   }
   Checkout.init({

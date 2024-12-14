@@ -15,6 +15,11 @@ exports.historyProductController = async (req, res) => {
     return res.status(result.status).json(result)
 }
 
+exports.historybyForumProductController = async (req, res) => {
+    const result = await checkoutService.getHistorybyForumProduct(req, res)
+    return res.status(result.status).json(result)
+}
+
 exports.checkPurchaseController = async (req, res) => {
     const result = await checkoutService.checkPurchaseService(req, res)
     return res.status(result.status).json(result)
