@@ -1,5 +1,5 @@
 const { rupiahFormat } = require('../helpers/formatRupiahHelper')
-const { Checkout, Forum, user } = require('../models')
+const { Checkout, Forum, User } = require('../models')
 require('dotenv').config();
 
 const ServerKey = process.env.SERVER_KEY;
@@ -177,6 +177,44 @@ exports.checkPurchaseService = async (req, res) => {
             status: 500,
             message: error.message,
             data: null
+        }
+    }
+}
+
+exports.getHistorybyForumProduct = async (req, res) => {
+    try {
+        const { id_forum } = req.params
+        const data = await Checkout.findAll(
+            {
+                where: 
+                {
+                    id_forum,
+                    status: 'settlement'
+                },
+                include: [
+                    {
+                        model: Forum,
+                        as: 'forum',
+                        attributes: ['name', 'description', 'price', 'picture', 'teacher_id']
+                    },
+                    {
+                        model: User,
+                        as: 'user',
+                        attributes: ['name', 'email', 'phone_number', 'picture']
+                    }
+                ]
+            }
+        )
+        return {
+            status: 200,
+            data,
+            message: "Success Get Data"
+        }
+    } catch (error) {
+        return {
+            status: 500,
+            data: [],
+            message: error.message
         }
     }
 }
