@@ -106,37 +106,62 @@ const uploadMaterial = async (materialData, files) => {
 
 // service untuk get materi dari forum
 const getMaterials = async (forumId) => {
-  const materials = await Material.findAll({
-    where: { forum_id: forumId },
-    include: [
-      {
-        model: MaterialFile,
-        as: 'files',
-        attributes: ['id', 'file_url'],
-      },
-    ],
-  });
+  try {
 
-  if (!materials || materials.length === 0) {
-    throw new Error('No materials found for the specified forum.');
+    const materials = await Material.findAll({
+      where: { forum_id: forumId },
+      include: [
+        {
+          model: MaterialFile,
+          as: 'files',
+          attributes: ['id', 'file_url'],
+        },
+      ],
+    });
+    return materials;
+  } catch (error) {
+    throw new Error(error.message);
   }
-
-  return materials;
 };
 
 // service untuk delete materi
 const deleteMaterial = async (materialId) => {
-  const material = await Material.findByPk(materialId);
+  // Cari materi berdasarkan materialId
+  const material = await Material.findByPk(materialId, {
+    include: {
+      model: MaterialFile,
+      as: 'files',
+    }
+  });
 
   if (!material) {
     throw new Error('Material not found');
   }
 
-  // Hapus materi, MaterialFiles akan ikut terhapus karena cascade
+  // Hapus setiap file yang terkait dengan materi
+  for (const file of material.files) {
+    const filePath = path.join(__dirname, '../uploads/materials', file.file_url); // Sesuaikan dengan lokasi penyimpanan file
+
+    try {
+      // Hapus file dari server
+      await fs.unlink(filePath);
+      console.log(`File ${file.file_url} has been deleted from the server`);
+
+      // Hapus file dari database
+      await file.destroy();
+      console.log(`File ${file.file_url} has been removed from the database`);
+    } catch (error) {
+      console.error(`Failed to delete file ${file.file_url}: `, error);
+      // Lanjutkan meskipun satu file gagal dihapus
+    }
+  }
+
+  // Hapus materi dari database
   await material.destroy();
 
   return { message: 'Material and its files have been deleted successfully' };
 };
+
 
 const deleteMaterialFile = async (fileId) => {
   const materialFile = await MaterialFile.findByPk(fileId);
@@ -161,6 +186,18 @@ const deleteMaterialFile = async (fileId) => {
   return { message: 'Material file deleted successfully' };
 };
 
+const getFilePath = async (filename) => {
+  const filePath = path.join(__dirname, '../uploads/materials', filename); // Sesuaikan folder penyimpanan
+
+  try {
+    // fs.access untuk memeriksa keberadaan file
+    await fs.access(filePath);
+    return filePath;
+  } catch (error) {
+    throw new Error('File not found');
+  }
+};
+
 module.exports = {
   createForum,
   getForums,
@@ -172,4 +209,5 @@ module.exports = {
   getMaterials,
   deleteMaterial,
   deleteMaterialFile,
+  getFilePath
 };

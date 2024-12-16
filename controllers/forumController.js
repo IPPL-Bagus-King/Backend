@@ -188,6 +188,19 @@ const deleteMaterialFile = async (req, res) => {
   }
 };
 
+const downloadFile = async (req, res) => {
+  const { filename } = req.params;
+
+  try {
+    const filePath = await forumService.getFilePath(filename); // Tunggu hasil dari fungsi asinkron
+    res.download(filePath); // Kirim file ke client untuk diunduh
+  } catch (error) {
+    res.status(404).json({ message: error.message }); // Tanggapi jika file tidak ditemukan
+  }
+};
+
+
+
 module.exports = {
   createForum,
   getForums,
@@ -199,4 +212,5 @@ module.exports = {
   getMaterials,
   deleteMaterial,
   deleteMaterialFile,
+  downloadFile
 };

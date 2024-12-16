@@ -49,7 +49,6 @@ router.delete(
 );
 
 // route delete material file
-
 router.delete(
   '/materials/file/:fileId',
   auth,
@@ -58,3 +57,6 @@ router.delete(
 );
 
 module.exports = router;
+
+// route download material file
+router.get('/files/:filename', forumController.downloadFile);
