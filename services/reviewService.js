@@ -92,7 +92,7 @@ exports.getReview = async (req, res) => {
     }
 
     const totalRating = allReview.reduce((sum, review) => sum + review.rating, 0);
-    const averageRating = totalRating / allReview.length;
+    const averageRating = (totalRating / allReview.length).toFixed(1);
 
 
     return {
