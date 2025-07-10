@@ -27,17 +27,23 @@ Backend ini menangani manajemen pengguna, autentikasi, peran (role-based access)
 > Pastikan kamu sudah menginstall [Node.js](https://nodejs.org/) dan React CLI.
 
 ```bash
-## 1. Clone repository ini
+# 1. Clone repository ini
 git clone https://github.com/IPPL-Bagus-King/Backend.git
 cd Backend
 
-# 2. Install semua dependency
+# 2. Buka MySQL client, lalu jalankan perintah ini:
+CREATE DATABASE mewing;
+
+# 3. Install semua dependency
 npm install
 
-# 3. Migrasi database
+# 4. Migrasi database
 npx sequelize-cli db:migrate
 
-# 4. Jalankan server backend
+# 5. Seeding (opsional - jika ingin lihat preview)
+npx sequelize-cli db:seed:all
+
+# 6. Jalankan server backend
 npm run dev
 
 
@@ -59,9 +65,5 @@ JWT_SECRET=tes123
 SERVER_KEY=SB-Mid-server-AKiBFXzYHcDEdO4QIbHthRZJ
 CLIENT_KEY=SB-Mid-client-hui56D0DUmW4Me0Z
 
-```
-Buat file `.env` di root folder backend dan isi dengan format berikut:
 
--- Buka MySQL client, lalu jalankan perintah ini:
-CREATE DATABASE mewing;
 
