@@ -45,7 +45,6 @@ npm run dev
 
 Buat file `.env` di root folder backend dan isi dengan format berikut:
 
-```env
 DB_USERNAME=root
 DB_PASSWORD=
 DB_NAME=mewing
@@ -60,7 +59,7 @@ JWT_SECRET=tes123
 SERVER_KEY=SB-Mid-server-AKiBFXzYHcDEdO4QIbHthRZJ
 CLIENT_KEY=SB-Mid-client-hui56D0DUmW4Me0Z
 
-
+```
 Buat file `.env` di root folder backend dan isi dengan format berikut:
 
 -- Buka MySQL client, lalu jalankan perintah ini:
